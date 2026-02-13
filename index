@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Eve’s Eden Photography</title>
+  <meta name="description" content="Eve’s Eden Photography — sensual portraiture as ritual. Light, shadow, devotion." />
+  <meta property="og:title" content="Eve’s Eden Photography" />
+  <meta property="og:description" content="Sensual portraiture as ritual. Light, shadow, devotion." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Age Gate -->
+  <div id="ageGate" class="gate" role="dialog" aria-modal="true" aria-label="Age verification">
+    <div class="gate-card">
+      <div class="sigil" aria-hidden="true"></div>
+      <h1>Eve’s Eden</h1>
+      <p class="gate-sub">
+        This site presents <strong>adult-oriented sensual artistry</strong> with a spiritual tone.
+        No explicit content is displayed. Viewer discretion is advised.
+      </p>
+      <p class="gate-sub"><strong>Are you 18+?</strong></p>
+      <div class="gate-actions">
+        <button class="btn primary" id="enterBtn">Yes, enter</button>
+        <a class="btn ghost" href="https://www.google.com">No, exit</a>
+      </div>
+      <p class="fineprint">
+        By entering, you confirm you are at least 18 years old and agree to respect model boundaries and consent.
+      </p>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Eve’s Eden home">
+      <span class="mark" aria-hidden="true"></span>
+      <span class="brand-text">Eve’s Eden</span>
+    </a>
+
+    <nav class="links" aria-label="Primary">
+      <a href="#portfolio">Portfolio</a>
+      <a href="#offerings">Offerings</a>
+      <a href="#ritual">The Ritual</a>
+      <a href="#book">Book</a>
+      <a href="#policies">Policies</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main id="top" class="hero">
+    <div class="hero-inner">
+      <p class="kicker">Sensual portraiture as ritual</p>
+      <h2>Light becomes devotion.<br/>Shadow becomes scripture.</h2>
+      <p class="lead">
+        Eve’s Eden is an intimate studio experience where beauty is treated with reverence:
+        deliberate lighting, curated atmosphere, and consent-led direction.
+      </p>
+
+      <div class="cta">
+        <a class="btn primary" href="#book">Book a Session</a>
+        <a class="btn ghost" href="#portfolio">View Portfolio</a>
+      </div>
+
+      <div class="badges" aria-label="Highlights">
+        <span>18+ Studio</span>
+        <span>Consent-Forward</span>
+        <span>Private & Discreet</span>
+        <span>Atlanta + Travel</span>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="halo"></div>
+      <div class="grain"></div>
+    </div>
+  </main>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="section">
+    <div class="section-head">
+      <h3>Portfolio</h3>
+      <p>Replace these placeholders with your real images. Keep it implied, elegant, and cinematic.</p>
+    </div>
+
+    <div class="grid">
+      <!-- Replace src with your images in /assets -->
+      <figure class="tile"><img src="assets/placeholder-1.jpg" alt="Portrait placeholder 1"><figcaption>Temple Light</figcaption></figure>
+      <figure class="tile"><img src="assets/placeholder-2.jpg" alt="Portrait placeholder 2"><figcaption>Wine & Gold</figcaption></figure>
+      <figure class="tile"><img src="assets/placeholder-3.jpg" alt="Portrait placeholder 3"><figcaption>Silhouette Prayer</figcaption></figure>
+      <figure class="tile"><img src="assets/placeholder-4.jpg" alt="Portrait placeholder 4"><figcaption>Soft Thunder</figcaption></figure>
+      <figure class="tile"><img src="assets/placeholder-5.jpg" alt="Portrait placeholder 5"><figcaption>Garden After Dark</figcaption></figure>
+      <figure class="tile"><img src="assets/placeholder-6.jpg" alt="Portrait placeholder 6"><figcaption>Velvet Vow</figcaption></figure>
+    </div>
+
+    <p class="note">
+      Tip: avoid anything explicit on the public site. Put higher-intimacy work behind a private client gallery link.
+    </p>
+  </section>
+
+  <!-- Offerings -->
+  <section id="offerings" class="section alt">
+    <div class="section-head">
+      <h3>Offerings</h3>
+      <p>Choose the experience. All sessions are guided, private, and consent-led.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <h4>Devotion</h4>
+        <p class="price">$ —</p>
+        <ul>
+          <li>45–60 min studio session</li>
+          <li>Wardrobe guidance + mood styling</li>
+          <li>10 edited images</li>
+          <li>Private online gallery</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h4>Rapture</h4>
+        <p class="price">$$ —</p>
+        <ul>
+          <li>90 min session</li>
+          <li>2 looks / transitions</li>
+          <li>18 edited images</li>
+          <li>Print-ready delivery</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h4>Ceremony</h4>
+        <p class="price">$$$ —</p>
+        <ul>
+          <li>2–3 hour experience</li>
+          <li>Multiple looks + set change</li>
+          <li>30 edited images</li>
+          <li>Optional cinematic clips</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="note">
+      Replace “$” with real pricing when you’re ready — or keep it “Request rates” if you prefer discretion.
+    </p>
+  </section>
+
+  <!-- The Ritual -->
+  <section id="ritual" class="section">
+    <div class="two-col">
+      <div>
+        <h3>The Ritual</h3>
+        <p>
+          The Eden experience is structured — not chaotic. We set intention, define boundaries, curate lighting,
+          and direct poses with clarity. Your comfort is the foundation; the art is the result.
+        </p>
+        <div class="pillbox">
+          <span>Pre-call consult</span>
+          <span>Consent checklist</span>
+          <span>Music + mood</span>
+          <span>Guided posing</span>
+          <span>Discreet delivery</span>
+        </div>
+      </div>
+      <div class="quote">
+        <p>“Not everything sacred needs a sermon. Sometimes it needs a spotlight.”</p>
+        <span>— Eve’s Eden</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section id="book" class="section alt">
+    <div class="section-head">
+      <h3>Book</h3>
+      <p>Fill this out and it will open your email client. Swap this for a Google Form or HoneyBook later.</p>
+    </div>
+
+    <form class="form" id="bookingForm">
+      <div class="row">
+        <label>
+          Name
+          <input name="name" required placeholder="Your name" />
+        </label>
+        <label>
+          Email
+          <input name="email" type="email" required placeholder="you@email.com" />
+        </label>
+      </div>
+
+      <div class="row">
+        <label>
+          Session Type
+          <select name="type" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Devotion</option>
+            <option>Rapture</option>
+            <option>Ceremony</option>
+            <option>Custom</option>
+          </select>
+        </label>
+
+        <label>
+          Location
+          <select name="location" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Studio</option>
+            <option>Hotel / Airbnb</option>
+            <option>Outdoor / Natural</option>
+            <option>Client Home</option>
+          </select>
+        </label>
+      </div>
+
+      <label>
+        Vision (what vibe are we creating?)
+        <textarea name="vision" rows="5" required placeholder="Cinematic? soft? bold? goddess energy? noir?"></textarea>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" name="adult" required />
+        I confirm I am 18+ and understand this is sensual, non-explicit art.
+      </label>
+
+      <button class="btn primary" type="submit">Send Booking Request</button>
+
+      <p class="fineprint">
+        Discretion honored. Boundaries respected. Consent is non-negotiable.
+      </p>
+    </form>
+  </section>
+
+  <!-- Policies -->
+  <section id="policies" class="section">
+    <div class="section-head">
+      <h3>Policies</h3>
+      <p>Keep the vibe spiritual, but keep the business clear. Clarity prevents chaos.</p>
+    </div>
+
+    <div class="policies">
+      <details open>
+        <summary>Consent & Boundaries</summary>
+        <p>
+          We define boundaries before shooting. You can pause or stop at any time. No pressure, ever.
+          Any pose or wardrobe choice is opt-in.
+        </p>
+      </details>
+
+      <details>
+        <summary>Discretion</summary>
+        <p>
+          Your images are delivered privately. Nothing is posted publicly without written permission.
+        </p>
+      </details>
+
+      <details>
+        <summary>Content</summary>
+        <p>
+          Eve’s Eden focuses on sensual, artistic portraiture. This is not explicit adult content.
+        </p>
+      </details>
+
+      <details>
+        <summary>Deposits & Rescheduling</summary>
+        <p>
+          Add your real terms here: deposit amount, cancellation window, reschedule policy.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Eve’s Eden Photography</p>
+    <p class="footer-links">
+      <a href="#top">Back to top</a>
+      <a href="mailto:youremail@domain.com">Email</a>
+      <a href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
