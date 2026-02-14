@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Private Gallery — Eve’s Eden</title>
+  <link rel="stylesheet" href="assets/css/private.css" />
+</head>
+
+<body>
+  <main class="wrap">
+    <header class="top">
+      <a class="back" href="./index.html#portfolio">← Back to public site</a>
+      <h1>Private Gallery</h1>
+      <p class="sub">Access is limited. Please enter the password provided to you.</p>
+    </header>
+
+    <section class="gate" id="gate">
+      <div class="card">
+        <label for="pw">Password</label>
+        <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password" />
+        <button id="enter">Enter</button>
+        <p class="hint" id="hint"></p>
+      </div>
+      <p class="note">
+        This is a courtesy privacy gate (static site). For real security, we can switch to Cloudflare/Netlify protected access.
+      </p>
+    </section>
+
+    <section class="gallery hidden" id="gallery" aria-hidden="true">
+      <div class="grid">
+        <!-- Replace these with your private images -->
+        <figure><img src="assets/img/private/1.jpg" alt="Private portrait 1"><figcaption>Private Set I</figcaption></figure>
+        <figure><img src="assets/img/private/2.jpg" alt="Private portrait 2"><figcaption>Private Set II</figcaption></figure>
+        <figure><img src="assets/img/private/3.jpg" alt="Private portrait 3"><figcaption>Private Set III</figcaption></figure>
+        <figure><img src="assets/img/private/4.jpg" alt="Private portrait 4"><figcaption>Private Set IV</figcaption></figure>
+        <figure><img src="assets/img/private/5.jpg" alt="Private portrait 5"><figcaption>Private Set V</figcaption></figure>
+        <figure><img src="assets/img/private/6.jpg" alt="Private portrait 6"><figcaption>Private Set VI</figcaption></figure>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/private.js"></script>
+</body>
+</html>
