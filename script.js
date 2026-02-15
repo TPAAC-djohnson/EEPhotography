@@ -1,46 +1,49 @@
-(function () {
-  const gate = document.getElementById("ageGate");
-  const enterBtn = document.getElementById("enterBtn");
-  const year = document.getElementById("year");
-  year.textContent = new Date().getFullYear();
+(() => {
+  document.addEventListener("DOMContentLoaded", () => {
+    // Footer year (safe)
+    const year = document.getElementById("year");
+    if (year) year.textContent = new Date().getFullYear();
 
-  // Age gate remembered for 30 days
-  const KEY = "eveseden_age_ok";
-  const ok = localStorage.getItem(KEY);
+    // Age Gate
+    const gate = document.getElementById("ageGate");
+    const enterBtn = document.getElementById("enterBtn");
 
-  if (ok === "true") gate.style.display = "none";
+    const KEY = "eveseden_age_ok";
+    const ok = localStorage.getItem(KEY);
 
-  enterBtn?.addEventListener("click", () => {
-    localStorage.setItem(KEY, "true");
-    gate.style.display = "none";
-  });
+    // If previously accepted, hide the gate
+    if (ok === "true" && gate) gate.style.display = "none";
 
-  // Booking form -> mailto
-  const form = document.getElementById("bookingForm");
-  form?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const name = data.get("name");
-    const email = data.get("email");
-    const type = data.get("type");
-    const location = data.get("location");
-    const vision = data.get("vision");
+    // Attach click handler safely
+    if (enterBtn && gate) {
+      enterBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.setItem(KEY, "true");
+        gate.style.display = "none";
+      });
+    }
 
-    // TODO: replace with your email
-    const to = "youremail@domain.com";
-    const subject = encodeURIComponent(`Booking Request — ${type}`);
-    const body = encodeURIComponent(
-`Name: ${name}
-Email: ${email}
-Session: ${type}
-Location: ${location}
+    // Booking form -> mailto (optional)
+    const form = document.getElementById("bookingForm");
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+
+        const to = "info@eepatl.com"; // change if needed
+        const subject = encodeURIComponent(`Booking Request — ${data.get("type") || "Session"}`);
+        const body = encodeURIComponent(
+`Name: ${data.get("name")}
+Email: ${data.get("email")}
+Session: ${data.get("type")}
+Location: ${data.get("location")}
 
 Vision:
-${vision}
+${data.get("vision")}`
+        );
 
-(Confirmed 18+ / consent-forward)`
-    );
-
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+      });
+    }
   });
 })();
