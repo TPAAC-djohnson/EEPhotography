@@ -27,3 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+const logoutBtn = document.getElementById('logoutBtn');
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('eepatl_private_access');
+    window.location.href = 'index.html';
+  });
+}
