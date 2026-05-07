@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Seventh House Tarot Archives</title>
+  <meta name="description" content="Interactive Major Arcana flip card archive for The Seventh House Skool course." />
+  <style>
+    :root {
+      --black: #050505;
+      --charcoal: #111111;
+      --deep: #17110a;
+      --gold: #d4af37;
+      --soft-gold: #f4d77a;
+      --cream: #f8efd6;
+      --muted: #b9a76d;
+      --shadow: rgba(0,0,0,.65);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: var(--cream);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(212,175,55,.14), transparent 28%),
+        radial-gradient(circle at 80% 15%, rgba(244,215,122,.09), transparent 24%),
+        linear-gradient(180deg, #111 0%, #050505 50%, #000 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .17;
+      background-image:
+        linear-gradient(rgba(212,175,55,.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,175,55,.18) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at center, black, transparent 75%);
+    }
+
+    .hero {
+      min-height: 56vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 70px 22px 45px;
+      position: relative;
+    }
+
+    .seal {
+      width: 116px;
+      height: 116px;
+      border: 1px solid rgba(212,175,55,.7);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: grid;
+      place-items: center;
+      color: var(--soft-gold);
+      font-size: 44px;
+      box-shadow: 0 0 38px rgba(212,175,55,.13), inset 0 0 28px rgba(212,175,55,.08);
+    }
+
+    .eyebrow {
+      color: var(--soft-gold);
+      letter-spacing: 6px;
+      font-size: 13px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(38px, 6vw, 86px);
+      line-height: .93;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-shadow: 0 0 28px rgba(212,175,55,.22);
+    }
+
+    .subtitle {
+      max-width: 820px;
+      margin: 22px auto 0;
+      color: #e7ddc3;
+      font-size: clamp(16px, 2vw, 22px);
+      line-height: 1.55;
+    }
+
+    .note {
+      margin-top: 28px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      background: rgba(5,5,5,.88);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(212,175,55,.18);
+      border-bottom: 1px solid rgba(212,175,55,.22);
+      padding: 14px 20px;
+    }
+
+    .toolbar-inner {
+      max-width: 1180px;
+      margin: auto;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .search {
+      flex: 1 1 320px;
+      background: #0c0c0c;
+      border: 1px solid rgba(212,175,55,.38);
+      color: var(--cream);
+      padding: 12px 14px;
+      border-radius: 999px;
+      outline: none;
+      font-family: inherit;
+      font-size: 15px;
+    }
+
+    .btn {
+      border: 1px solid rgba(212,175,55,.45);
+      background: linear-gradient(145deg, #15110a, #080808);
+      color: var(--soft-gold);
+      padding: 11px 15px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 1px;
+      transition: .25s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); border-color: var(--soft-gold); }
+
+    .section-title {
+      max-width: 1180px;
+      margin: 50px auto 20px;
+      padding: 0 22px;
+    }
+
+    .section-title h2 {
+      color: var(--gold);
+      font-size: clamp(28px, 4vw, 46px);
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: #d8cfb8;
+      line-height: 1.6;
+      max-width: 760px;
+    }
+
+    .grid {
+      max-width: 1180px;
+      margin: 0 auto 70px;
+      padding: 0 22px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 26px;
+    }
+
+    .card {
+      height: 390px;
+      perspective: 1200px;
+      cursor: pointer;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform .78s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .card.flipped .card-inner { transform: rotateY(180deg); }
+
+    .face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 22px;
+      border: 1.6px solid rgba(212,175,55,.72);
+      box-shadow: 0 20px 45px var(--shadow), inset 0 0 34px rgba(212,175,55,.08);
+      overflow: hidden;
+    }
+
+    .front {
+      background:
+        radial-gradient(circle at 50% 22%, rgba(212,175,55,.20), transparent 32%),
+        linear-gradient(145deg, #080808, #191209 72%, #040404);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      padding: 22px;
+    }
+
+    .front::before {
+      content: "";
+      position: absolute;
+      inset: 15px;
+      border: 1px solid rgba(244,215,122,.35);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    .roman {
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 5px;
+      z-index: 1;
+    }
+
+    .glyph {
+      z-index: 1;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--soft-gold);
+      font-size: 62px;
+      border: 1px solid rgba(212,175,55,.38);
+      box-shadow: inset 0 0 22px rgba(212,175,55,.10), 0 0 24px rgba(212,175,55,.12);
+      background: rgba(0,0,0,.18);
+    }
+
+    .front h3 {
+      z-index: 1;
+      margin: 0;
+      color: var(--gold);
+      font-size: 25px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 1.1;
+    }
+
+    .click-text {
+      z-index: 1;
+      color: #d6c893;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      background: linear-gradient(145deg, #17110a, #070707 70%);
+      padding: 23px;
+      overflow-y: auto;
+    }
+
+    .back h3 {
+      color: var(--gold);
+      margin: 0 0 8px;
+      font-size: 23px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .keywords {
+      color: var(--soft-gold);
+      font-size: 14px;
+      line-height: 1.45;
+      font-style: italic;
+      margin-bottom: 14px;
+    }
+
+    .label {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 14px 0 5px;
+    }
+
+    .text {
+      color: #f3ead2;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 45px 20px 60px;
+      border-top: 1px solid rgba(212,175,55,.18);
+      color: #bca766;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .card { height: 405px; }
+      .toolbar-inner { justify-content: center; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <div class="seal">♎</div>
+      <div class="eyebrow">The Seventh House</div>
+      <h1>Tarot Archives</h1>
+      <p class="subtitle">An interactive Major Arcana flip-card experience for symbolic study, relationship reflection, and psychological interpretation.</p>
+      <div class="note">Click any card to reveal its meaning</div>
+    </div>
+  </header>
+
+  <nav class="toolbar">
+    <div class="toolbar-inner">
+      <input id="search" class="search" type="search" placeholder="Search card, keyword, shadow, or relationship meaning..." />
+      <button class="btn" id="flipAll">Flip All</button>
+      <button class="btn" id="resetAll">Reset</button>
+    </div>
+  </nav>
+
+  <section class="section-title">
+    <h2>Major Arcana Archive</h2>
+    <p>The Major Arcana represents archetypal stages of growth, rupture, awakening, love, shadow, rebirth, and completion. In The Seventh House framework, every card is also read as a mirror of relationship.</p>
+  </section>
+
+  <main class="grid" id="grid"></main>
+
+  <footer class="footer">Know Thyself • Align With Purpose • Relationships Are Mirrors</footer>
+
+  <script>
+    const cards = [
+      {n:'0', title:'The Fool', glyph:'☀', keywords:'Beginnings • Innocence • Risk • Faith • Potential', meaning:'The Fool represents the threshold of a new journey. It is openness before experience, faith before evidence, and the sacred risk of becoming.', shadow:'Naivety, recklessness, avoidance of responsibility, and confusing freedom with immaturity.', relationship:'In relationships, The Fool may reveal a new beginning, fresh attraction, or the risk of entering connection without enough discernment. The mirror asks whether love is being approached with courage or carelessness.', prompt:'Where am I being called to begin again without abandoning wisdom?'},
+      {n:'I', title:'The Magician', glyph:'✦', keywords:'Manifestation • Skill • Willpower • Focus • Creation', meaning:'The Magician symbolizes the power to direct intention. It is the archetype of skill, language, tools, and transformation through focused action.', shadow:'Manipulation, performance, ego, deception, and using charisma without integrity.', relationship:'In relationships, The Magician may show attraction through communication, confidence, and chemistry. The mirror asks whether influence is being used to create truth or control perception.', prompt:'Where am I using my power creatively, and where am I using it to control?'},
+      {n:'II', title:'The High Priestess', glyph:'☾', keywords:'Intuition • Mystery • Silence • Hidden Wisdom • Inner Knowing', meaning:'The High Priestess represents concealed knowledge, sacred silence, emotional intuition, and the wisdom beneath the visible world.', shadow:'Secrecy, emotional withholding, passive withdrawal, and hiding behind mystery instead of speaking truth.', relationship:'In relationships, this card may reveal unspoken feelings, intuitive knowing, hidden motives, or the need to listen beneath words. The mirror asks what is felt but not said.', prompt:'What truth do I already know but hesitate to name?'},
+      {n:'III', title:'The Empress', glyph:'♀', keywords:'Abundance • Nurturing • Beauty • Fertility • Creation', meaning:'The Empress symbolizes creation, sensuality, nourishment, and the life-giving principle of emotional and material abundance.', shadow:'Overindulgence, dependency, smothering, vanity, and giving until the self disappears.', relationship:'In relationships, The Empress speaks to devotion, tenderness, beauty, and emotional care. The mirror asks whether nurturing is flowing freely or becoming a demand for validation.', prompt:'Where can I nurture without losing myself?'},
+      {n:'IV', title:'The Emperor', glyph:'♔', keywords:'Authority • Structure • Protection • Leadership • Stability', meaning:'The Emperor represents order, responsibility, discipline, protection, and the creation of stable foundations.', shadow:'Control, rigidity, domination, emotional distance, and confusing authority with love.', relationship:'In relationships, The Emperor may reveal commitment, boundaries, leadership, or power struggle. The mirror asks whether structure creates safety or becomes a throne for ego.', prompt:'Where do I need structure, and where do I need softness?'},
+      {n:'V', title:'The Hierophant', glyph:'✠', keywords:'Tradition • Teaching • Institution • Belief • Sacred Order', meaning:'The Hierophant symbolizes inherited wisdom, spiritual systems, mentorship, and the traditions that shape identity and morality.', shadow:'Dogma, conformity, shame, spiritual control, and obedience without discernment.', relationship:'In relationships, this card may represent marriage, shared values, family expectations, or pressure to conform. The mirror asks whether the bond is rooted in true covenant or social performance.', prompt:'Which beliefs are truly mine, and which were handed to me?'},
+      {n:'VI', title:'The Lovers', glyph:'♡', keywords:'Union • Choice • Intimacy • Values • Alignment', meaning:'The Lovers represents meaningful connection, emotional choice, attraction, value alignment, and the sacred tension between desire and integrity.', shadow:'Dependency, temptation, avoidance of choice, fantasy, and confusing chemistry with covenant.', relationship:'In relationships, The Lovers is the direct mirror of intimacy. It asks whether attraction is aligned with values and whether desire strengthens or divides the self.', prompt:'What does my heart choose when my ego is silent?'},
+      {n:'VII', title:'The Chariot', glyph:'☸', keywords:'Direction • Victory • Willpower • Discipline • Movement', meaning:'The Chariot symbolizes directed force, emotional control, ambition, and progress through discipline.', shadow:'Aggression, force, burnout, emotional suppression, and winning at the cost of peace.', relationship:'In relationships, The Chariot may reveal pursuit, distance, momentum, or conflict between two emotional directions. The mirror asks whether both people are moving together or competing for control.', prompt:'Am I moving with purpose, or am I trying to outrun my emotions?'},
+      {n:'VIII', title:'Strength', glyph:'∞', keywords:'Courage • Compassion • Patience • Inner Power • Mastery', meaning:'Strength represents emotional mastery, courage under pressure, tenderness with power, and restraint without weakness.', shadow:'Suppression, pride, passive endurance, and pretending pain is strength.', relationship:'In relationships, Strength reveals patience, forgiveness, loyalty, and the discipline not to harm when triggered. The mirror asks whether love is making you softer or merely more tolerant of pain.', prompt:'Where does my strength need compassion instead of control?'},
+      {n:'IX', title:'The Hermit', glyph:'✧', keywords:'Solitude • Reflection • Wisdom • Inner Search • Discernment', meaning:'The Hermit symbolizes withdrawal for truth, solitude for wisdom, and the lantern of inner guidance.', shadow:'Isolation, avoidance, emotional distance, and using solitude to escape intimacy.', relationship:'In relationships, The Hermit may reveal a need for space, introspection, or healing before connection. The mirror asks whether distance is sacred reflection or emotional disappearance.', prompt:'What can silence teach me that noise keeps hiding?'},
+      {n:'X', title:'Wheel of Fortune', glyph:'◎', keywords:'Cycles • Timing • Change • Fate • Turning Point', meaning:'The Wheel of Fortune represents cycles, shifting seasons, divine timing, and the instability of circumstances.', shadow:'Victim mentality, resistance to change, gambling with fate, and refusing accountability.', relationship:'In relationships, this card may reveal repeating cycles, sudden changes, or karmic-feeling patterns. The mirror asks whether you are learning from the cycle or worshiping the repetition.', prompt:'What cycle keeps returning because I have not learned its lesson?'},
+      {n:'XI', title:'Justice', glyph:'⚖', keywords:'Truth • Balance • Accountability • Ethics • Consequence', meaning:'Justice represents fairness, cause and effect, truth, moral clarity, and the weight of decisions.', shadow:'Cold judgment, imbalance, denial, legalism, and demanding fairness without self-examination.', relationship:'In relationships, Justice reveals accountability, truth-telling, boundaries, contracts, and consequences. The mirror asks whether both people are honest enough to be balanced.', prompt:'What truth must be named before balance can return?'},
+      {n:'XII', title:'The Hanged Man', glyph:'▽', keywords:'Surrender • Pause • Perspective • Sacrifice • Release', meaning:'The Hanged Man represents transformation through stillness, a change in perspective, and surrender of the old way of seeing.', shadow:'Stagnation, martyrdom, delay, helplessness, and romanticizing sacrifice.', relationship:'In relationships, this card may reveal waiting, sacrifice, or a need to see the other person differently. The mirror asks whether surrender is wisdom or self-abandonment.', prompt:'What perspective must I release to see clearly?'},
+      {n:'XIII', title:'Death', glyph:'✟', keywords:'Transformation • Ending • Rebirth • Release • Transition', meaning:'Death represents necessary endings, identity transformation, and the sacred clearing required for renewal.', shadow:'Fear of change, clinging to the past, emotional decay, and refusing to let dead things rest.', relationship:'In relationships, Death may reveal an ending, a rebirth, or the truth that a former version of the bond cannot survive. The mirror asks what must be released for life to return.', prompt:'What part of me is afraid to release what has already ended?'},
+      {n:'XIV', title:'Temperance', glyph:'☯', keywords:'Balance • Moderation • Healing • Integration • Harmony', meaning:'Temperance symbolizes patience, emotional regulation, spiritual integration, and the art of blending opposites.', shadow:'Excess, imbalance, emotional extremes, avoidance of discipline, and false peace.', relationship:'In relationships, Temperance asks for patience, compromise, healing, and mature emotional pacing. The mirror asks whether both people can blend without losing themselves.', prompt:'Where do I need integration instead of extremes?'},
+      {n:'XV', title:'The Devil', glyph:'♆', keywords:'Attachment • Temptation • Bondage • Desire • Limitation', meaning:'The Devil reveals unhealthy attachment, material fixation, obsession, fear, and self-imposed bondage.', shadow:'Addiction, manipulation, lust without love, dependency, shame, and emotional captivity.', relationship:'In relationships, The Devil may expose trauma bonds, obsession, control, secrecy, or temptation. The mirror asks what desire has become a chain.', prompt:'What attachment feels like love but behaves like bondage?'},
+      {n:'XVI', title:'The Tower', glyph:'⚡', keywords:'Collapse • Revelation • Disruption • Awakening • Truth', meaning:'The Tower represents sudden exposure, the destruction of false structures, and truth breaking through illusion.', shadow:'Chaos without reflection, resistance, denial, and rebuilding the same false structure again.', relationship:'In relationships, The Tower may reveal betrayal, sudden truth, conflict, or a necessary collapse. The mirror asks what was never stable enough to stand.', prompt:'What false structure in my life needs to collapse before transformation can occur?'},
+      {n:'XVII', title:'The Star', glyph:'★', keywords:'Hope • Healing • Renewal • Inspiration • Faith', meaning:'The Star represents healing after devastation, spiritual restoration, openness, and the quiet return of trust.', shadow:'False hope, passivity, escapism, and confusing waiting with healing.', relationship:'In relationships, The Star brings healing, vulnerability, and renewed faith after wounds. The mirror asks whether hope is grounded in truth or longing.', prompt:'What part of me is ready to believe in healing again?'},
+      {n:'XVIII', title:'The Moon', glyph:'☽', keywords:'Illusion • Dreams • Fear • Intuition • Mystery', meaning:'The Moon symbolizes subconscious fear, emotional confusion, dreams, illusion, and the unseen forces beneath perception.', shadow:'Paranoia, deception, projection, anxiety, fantasy, and mistaking fear for intuition.', relationship:'In relationships, The Moon may reveal confusion, secrecy, mixed signals, or emotional projection. The mirror asks what is real and what is fear wearing a familiar face.', prompt:'Where am I confusing intuition with insecurity?'},
+      {n:'XIX', title:'The Sun', glyph:'☀', keywords:'Joy • Clarity • Vitality • Success • Truth', meaning:'The Sun represents illumination, confidence, warmth, truth, celebration, and life-giving clarity.', shadow:'Ego, arrogance, overexposure, childishness, and demanding attention without responsibility.', relationship:'In relationships, The Sun reveals joy, honesty, playfulness, and visible affection. The mirror asks whether love allows both people to shine.', prompt:'Where am I ready to be seen without hiding my truth?'},
+      {n:'XX', title:'Judgment', glyph:'☌', keywords:'Awakening • Reckoning • Calling • Renewal • Accountability', meaning:'Judgment represents self-evaluation, resurrection, moral awakening, and answering the call to become new.', shadow:'Self-condemnation, avoidance, denial, shame, and refusing the lesson.', relationship:'In relationships, Judgment may reveal reckoning, forgiveness, accountability, or the need to decide whether a bond can rise again. The mirror asks what must be confessed before renewal.', prompt:'What truth is calling me into a higher version of myself?'},
+      {n:'XXI', title:'The World', glyph:'◉', keywords:'Completion • Integration • Fulfillment • Mastery • Wholeness', meaning:'The World symbolizes completion of a cycle, integration of lessons, mastery, and wholeness after transformation.', shadow:'Fear of closure, unfinished business, stagnation after success, and refusing to move into the next chapter.', relationship:'In relationships, The World may reveal closure, maturity, fulfillment, or the completion of a relational lesson. The mirror asks whether the cycle has taught what it came to teach.', prompt:'What cycle is complete, and what new world is waiting for me?'}
+    ];
+
+    const grid = document.getElementById('grid');
+    const search = document.getElementById('search');
+    const flipAll = document.getElementById('flipAll');
+    const resetAll = document.getElementById('resetAll');
+
+    function render(list) {
+      grid.innerHTML = '';
+      list.forEach(card => {
+        const el = document.createElement('article');
+        el.className = 'card';
+        el.dataset.text = `${card.title} ${card.keywords} ${card.meaning} ${card.shadow} ${card.relationship}`.toLowerCase();
+        el.innerHTML = `
+          <div class="card-inner">
+            <section class="face front">
+              <div class="roman">${card.n}</div>
+              <div class="glyph">${card.glyph}</div>
+              <h3>${card.title}</h3>
+              <div class="click-text">Click to reveal</div>
+            </section>
+            <section class="face back">
+              <h3>${card.n} — ${card.title}</h3>
+              <div class="keywords">${card.keywords}</div>
+              <div class="label">Symbolic Meaning</div>
+              <div class="text">${card.meaning}</div>
+              <div class="label">Shadow Meaning</div>
+              <div class="text">${card.shadow}</div>
+              <div class="label">Relationship Mirror</div>
+              <div class="text">${card.relationship}</div>
+              <div class="label">Reflection Prompt</div>
+              <div class="text">${card.prompt}</div>
+            </section>
+          </div>`;
+        el.addEventListener('click', () => el.classList.toggle('flipped'));
+        grid.appendChild(el);
+      });
+    }
+
+    render(cards);
+
+    search.addEventListener('input', e => {
+      const q = e.target.value.trim().toLowerCase();
+      const filtered = q ? cards.filter(c => `${c.title} ${c.keywords} ${c.meaning} ${c.shadow} ${c.relationship}`.toLowerCase().includes(q)) : cards;
+      render(filtered);
+    });
+
+    flipAll.addEventListener('click', () => document.querySelectorAll('.card').forEach(c => c.classList.add('flipped')));
+    resetAll.addEventListener('click', () => document.querySelectorAll('.card').forEach(c => c.classList.remove('flipped')));
+  </script>
+</body>
+</html>
